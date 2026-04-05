@@ -1,3 +1,31 @@
+require('dotenv').config();
+const { Telegraf } = require('telegraf');
+const axios = require('axios');
+const fs = require('fs-extra');
+const path = require('path');
+
+// ââ Config âââââââââââââââââââââââââââââââââââââââââââââââ
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const ALLOWED_USER_ID = process.env.ALLOWED_USER_ID;
+const RATEWIRE_KEY = process.env.RATEWIRE_API_KEY || 'rw_demo_enterprise_1';
+const RATEWIRE_URL = process.env.RATEWIRE_BASE_URL || 'https://ratewire-api.onrender.com/v1';
+
+// ââ Shared Data Store (VDG-Data â shared with Luna) ââââââ
+const VDG_DATA = process.env.VDG_DATA_DIR
+  || path.join(require('os').homedir(), 'Documents', 'VDG-Data');
+const http      = require('http');
+fs.ensureDirSync(VDG_DATA);
+const JOBS_FILE   = path.join(VDG_DATA, 'leo_jobs.json');
+const LOG_FILE    = path.join(VDG_DATA, 'leo_execution_log.json');
+const MEMORY_FILE = path.join(VDG_DATA, 'memory.json');          // shared
+const CONV_FILE   = path.join(VDG_DATA, 'leo_conversations.json'); // leo-specific
+
+if (!BOT_TOKEN) {
+  console.error('ERROR: TELEGRAM_BOT_TOKEN not set in .env');
+  process.exit(1);
+}
+
+// ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ
 // ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ
 const bot = new Telegraf(BOT_TOKEN);
 fs.ensureFileSync(JOBS_FILE);
