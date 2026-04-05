@@ -1,0 +1,20 @@
+{
+  "name": "leo-ceo-coo",
+  "version": "1.0.0",
+  "description": "Leo — CEO & COO Execution Agent for V&DG Management LLC",
+  "main": "src/leo.js",
+  "scripts": {
+    "start": "node src/leo.js",
+    "dev": "node --watch src/leo.js"
+  },
+  "dependencies": {}
+  
+  {
+    "telegraf": "^4.16.3",
+    "@anthropic-ai/sdk": "^0.24.0",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "axios": "^1.7.2",
+    "node-cron": "^3.0.3"
+  }
+}
