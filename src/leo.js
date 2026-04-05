@@ -1,28 +1,4 @@
-async function launchBot(attempt = 1) {
-  if (attempt > 1) {
-    const wait = attempt * 8000;
-    console.log('Leo 409 retry attempt ' + attempt + ', waiting ' + (wait/1000) + 's...');
-    await new Promise(r => setTimeout(r, wait));
-  }
-  try {
-    await bot.launch({ dropPendingUpdates: true });
-    console.log('');
-    console.log('──────────────────────────────────────────');
-    console.log(' 🔥 Leo is ONLINE');
-    console.log(' V&DG Execution Agent');
-    console.log(' Conversation mode: ENABLED ✅ (via RateWire proxy)');
-    console.log('──────────────────────────────────────────');
-    setTimeout(() => syncDashboard(), 8000);
-  } catch (err) {
-    if (err.message && err.message.includes('409') && attempt < 6) {
-      console.log('Leo 409 conflict, retrying...');
-      return launchBot(attempt + 1);
-    }
-    console.error('Leo failed to start:', err.message);
-    // Do NOT exit — keepalive server stays up, no crash loop
-  }
-}
-launchBot();// ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ
+// ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ
 const bot = new Telegraf(BOT_TOKEN);
 fs.ensureFileSync(JOBS_FILE);
 fs.ensureFileSync(LOG_FILE);
@@ -626,18 +602,31 @@ http.createServer((req, res) => res.end('Leo is alive')).listen(PORT, () => {
   }, 840000);
 });
 
-bot.launch({ dropPendingUpdates: true }).then(() => {
-  console.log('');
-  console.log('ââââââââââââââââââââââââââââââââââââââââââ');
-  console.log('  ð Leo is ONLINE');
-  console.log('  V&DG Execution Agent');
-  console.log('  Conversation mode: ENABLED â (via RateWire proxy)');
-  console.log('ââââââââââââââââââââââââââââââââââââââââââ');
-  setTimeout(() => syncDashboard(), 8000);
-}).catch(err => {
-  console.error('Leo failed to start:', err.message);
-  process.exit(1);
-});
+async function launchBot(attempt = 1) {
+  if (attempt > 1) {
+    const wait = attempt * 8000;
+    console.log('Leo 409 retry attempt ' + attempt + ', waiting ' + (wait/1000) + 's...');
+    await new Promise(r => setTimeout(r, wait));
+  }
+  try {
+    await bot.launch({ dropPendingUpdates: true });
+    console.log('');
+    console.log('──────────────────────────────────────────');
+    console.log(' 🔥 Leo is ONLINE');
+    console.log(' V&DG Execution Agent');
+    console.log(' Conversation mode: ENABLED ✅ (via RateWire proxy)');
+    console.log('──────────────────────────────────────────');
+    setTimeout(() => syncDashboard(), 8000);
+  } catch (err) {
+    if (err.message && err.message.includes('409') && attempt < 6) {
+      console.log('Leo 409 conflict, retrying...');
+      return launchBot(attempt + 1);
+    }
+    console.error('Leo failed to start:', err.message);
+    // Do NOT exit — keepalive server stays up, no crash loop
+  }
+}
+launchBot();
 
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
