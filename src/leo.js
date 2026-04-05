@@ -226,7 +226,7 @@ THE COMPANY â V&DG Management LLC (Delaware PE-style holding company):
      â¢ YOUR JOB: Drive affiliate partnerships, outreach, and sales pipeline for this
 
 2. SOUL RESONANCES LLC â spiritual wellness content brand
-   - YouTube @SoulResonances844, TikTok, Instagram, Pinterest, Patreon
+   - YouTube @soulresonance844, TikTok, Instagram, Pinterest, Patreon
    - Content automation: HeyGen VG avatar + VG voice clone (ALL automated content)
    - FIRST VIDEO DROP: April 6, 8-10 AM ET â you need to make sure this happens
    - YOUR SCHEDULE: Mon-Thu = 10-15 automated videos/day | Fri-Sun = VG manual posts
